@@ -128,10 +128,24 @@ func readDir(path string) ([]os.FileInfo, error) {
 	return files, nil
 }
 
+// 输入文件夹和输出文件夹
+var input, out string
+
+// 宽高
+// var width, height int
+
 func init() {
 	dir, _ := os.Getwd()
-	resultPath = filepath.Join(dir, "result")
-	rawPath = filepath.Join(dir, "face")
+	args := os.Args
+	if len(args) >= 3 {
+		input = args[1]
+		out = args[2]
+	} else {
+		input = "face"
+		out = "result"
+	}
+	resultPath = filepath.Join(dir, out)
+	rawPath = filepath.Join(dir, input)
 	fmt.Println("原始路径: ", rawPath)
 	fmt.Println("结果路径: ", resultPath)
 	// 在处理之前, 创建一个文件夹
